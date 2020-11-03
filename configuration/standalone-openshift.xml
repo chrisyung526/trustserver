@@ -60,6 +60,16 @@
                     <properties path="application-roles.properties" relative-to="jboss.server.config.dir"/>
                 </authorization>
             </security-realm>
+            <security-realm name="CertificateRealm">
+                <server-identities>
+                    <ssl>
+                        <keystore path="${env.KEYSTORE_PATH}" keystore-password="${env.KEYSTORE_PASS}" alias="${env.KEYSTORE_ALIAS}"/>
+                    </ssl>
+                </server-identities>
+                <authentication>
+                    <truststore path="${env.TRUSTSTORE_PATH}" keystore-password="${env.TRUSTSTORE_PASS}"/>
+                </authentication>
+            </security-realm>
         </security-realms>
         <audit-log>
             <formatters>
@@ -553,6 +563,7 @@
             <server name="default-server">
                 <ajp-listener name="ajp" socket-binding="ajp"/>
                 <http-listener name="default" socket-binding="http" redirect-socket="https" proxy-address-forwarding="true" enable-http2="true"/>
+                <https-listener name="https" secure="true" enabled-protocols="TLSv1.1,TLSv1.2" security-realm="CertificateRealm" socket-binding="https"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker security-realm="ApplicationRealm"/>
