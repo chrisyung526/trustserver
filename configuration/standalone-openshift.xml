@@ -152,7 +152,7 @@
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
-                <datasource jta="${env.DB_JTA}" jndi-name="${env.DB_JNDI}" pool-name="test-TEST" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}">
+                <datasource jta="${env.DB_JTA}" jndi-name="${env.DB_JNDI}" pool-name="sot" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}">
                     <connection-url>${env.DB_URL}</connection-url>
                     <driver>${env.DB_DRIVER}</driver>
                     <pool>
