@@ -417,7 +417,7 @@
             </cache-container>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:io:3.0">
-            <worker name="default"/>
+            <worker name="default" task-max-threads="${env.TASK_MAX_THREADS}"/>
             <buffer-pool name="default"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:jaxrs:1.0"/>
@@ -562,14 +562,14 @@
             <buffer-cache name="default"/>
             <server name="default-server">
                 <ajp-listener name="ajp" socket-binding="ajp"/>
-                <http-listener name="default" socket-binding="http" redirect-socket="https" proxy-address-forwarding="true" enable-http2="true"/>
-                <https-listener name="https" secure="true" enabled-protocols="TLSv1.1,TLSv1.2" security-realm="CertificateRealm" socket-binding="https"/>
+                <http-listener name="default" socket-binding="http" redirect-socket="https" proxy-address-forwarding="true" enable-http2="true" max-connections="${env.HTTP_MAX_CONNECTIONS}"/>
+                <https-listener name="https" secure="true" enabled-protocols="TLSv1.1,TLSv1.2" security-realm="CertificateRealm" socket-binding="https" max-connections="${env.HTTP_MAX_CONNECTIONS}"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker security-realm="ApplicationRealm"/>
                 </host>
             </server>
-            <servlet-container name="default">
+            <servlet-container name="default" default-session-timeout="${env.SESSION_TIMEOUT}">
                 <jsp-config/>
                 <websockets/>
             </servlet-container>
